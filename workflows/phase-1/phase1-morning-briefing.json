@@ -1,0 +1,98 @@
+{
+  "name": "Morning Breifing",
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "8670128124",
+        "text": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        0
+      ],
+      "id": "713da693-9a54-41b3-8248-a993247e6058",
+      "name": "Send a text message",
+      "webhookId": "65c66906-6495-424c-9d4d-e017c846b113",
+      "credentials": {
+        "telegramApi": {
+          "id": "7WHMgOHOloFl5a1N",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ee3cd39a-434f-4f64-967c-3e79a31cf301",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\n\nconst days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];\nconst months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];\n\nconst dayName = days[now.getDay()];\nconst date = now.getDate();\nconst month = months[now.getMonth()];\nconst year = now.getFullYear();\n\nconst message = `🌅 Good Morning Haider!\n\n📅 Today is ${dayName}, ${date} ${month} ${year}\n\n🎯 Focus for today:\n- Do one thing that moves your biggest goal forward\n- Learn something you didn't know yesterday\n- Ship something — even if it's small\n\n⚡ You built a Telegram bot yesterday. Keep stacking.\n\n— Your Dashboard Bot`;\n\nreturn [{ json: { message } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "37f4d751-0527-4328-bf70-b93d79eb8e2d",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0d422eff-b8c5-461e-b73b-e94d2966049f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "30e515a91fab748a1b46343feff01dc42a0bc0080490962b6f3d31e00eba416c"
+  },
+  "nodeGroups": [],
+  "id": "4jij4wi8AQSoWwil",
+  "tags": []
+}

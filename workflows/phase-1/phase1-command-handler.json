@@ -1,0 +1,123 @@
+{
+  "name": "Telegram Command Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c7795714-6ee1-4cb0-87f5-3f4c91bce202",
+      "name": "Telegram Trigger",
+      "webhookId": "6cdd35cb-f4b9-4d69-8b43-48964e4e8569",
+      "credentials": {
+        "telegramApi": {
+          "id": "7WHMgOHOloFl5a1N",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d0482022-1fa3-42c8-90e4-579573f25ae9",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/status",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6f9b1d82-b0df-4eb2-9d7f-b3b323b0139a",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "8670128124",
+        "text": "=✅ Status: All systems running.\n📅 {{ new Date().toDateString() }}\n⚡ Your n8n dashboard is alive and operational.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "fb366391-7d9c-4b1d-91ba-a676b0bee51f",
+      "name": "Send a text message",
+      "webhookId": "5cdf66dd-7ea9-4877-a8cc-4eb53f5a5bd7",
+      "credentials": {
+        "telegramApi": {
+          "id": "7WHMgOHOloFl5a1N",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "975de85e-2614-438b-813c-bd05b2875225",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "30e515a91fab748a1b46343feff01dc42a0bc0080490962b6f3d31e00eba416c"
+  },
+  "nodeGroups": [],
+  "id": "GttbwBdxCghLCgSu",
+  "tags": []
+}
